@@ -5,7 +5,7 @@ export const initDb = async () => {
 
   const mongooseClient = await mongoose.connect(process.env.MONGO_URL as string);
 
-  console.log('[Mongo] Connected to Mongo DB!');
+  console.log('[Mongo] Successfuly connected');
 
   return mongooseClient;
 };

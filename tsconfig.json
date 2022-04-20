@@ -15,8 +15,9 @@
     "incremental": true,
     "declarationMap": true,
     "inlineSourceMap": true,
-    "inlineSources": true
+    "inlineSources": true,
+    "esModuleInterop": true
   },
   "include": ["**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "exclude": ["node_modules", "**/*.spec.ts", "./dist/**/*"]
 }

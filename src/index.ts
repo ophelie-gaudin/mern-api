@@ -13,6 +13,6 @@ initDb().then((mongooseClient) => {
   });
 
   app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
+    console.log(`[Express]: ⚡️HTTP server is running at https://localhost:${port}`);
   });
 });
