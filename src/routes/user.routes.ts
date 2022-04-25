@@ -1,9 +1,14 @@
 import { Router } from 'express';
 import { AuthController } from '../controllers/auth.controller';
+import { UserController } from '../controllers/user.controller';
 
 export const userRouter = Router();
 
+// auth
 userRouter.post('/register', AuthController.signUp);
+
+// user DB
+userRouter.get('/', UserController.getAllUsers);
 
 // userRouter.post('/signin', (req, res) => {
 //   console.log('toto');

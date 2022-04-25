@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-// import isEmail from 'validator';
+import { isEmail } from 'validator';
+import bcrypt from 'bcrypt';
 
 const userSchema = new mongoose.Schema(
   {
@@ -15,7 +16,7 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      // validate: [isEmail],
+      validate: [isEmail],
       lowercase: true,
       trim: true,
     },
@@ -24,6 +25,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       max: 1024,
       minLength: 6,
+    },
+    picture: {
+      type: String,
+      default: './uploads/profil/random-user.png',
     },
     bio: {
       type: String,
@@ -43,5 +48,13 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
+
+// play function before save into DB
+userSchema.pre('save', async function (next) {
+  const salt = await bcrypt.genSalt();
+  // salt to encrypt password
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
 
 export const UserModel = mongoose.model('user', userSchema);
