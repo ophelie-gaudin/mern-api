@@ -11,8 +11,10 @@ export class UserController {
   static getUserInfo = async (req, res) => {
     console.log(req.params);
 
+    // verify if the ID user exist
     if (!isValidObjectId(req.params.id)) return res.status(400).send('ID unknown : ' + req.params.id);
 
+    // if it exists, execute :
     UserModel.findById(req.params.id, (err, docs) => {
       if (!err) res.send(docs);
       // docs: data in response
