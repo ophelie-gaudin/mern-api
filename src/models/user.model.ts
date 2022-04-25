@@ -7,8 +7,8 @@ const userSchema = new mongoose.Schema(
     pseudo: {
       type: String,
       required: true,
-      minLength: 3,
-      maxLength: 55,
+      minlength: 3,
+      maxlength: 55,
       unique: true,
       trim: true,
       // trim permet d'enlever les espaces en fin de pseudo si l'user en met
@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       max: 1024,
-      minLength: 6,
+      minlength: 6,
     },
     picture: {
       type: String,
