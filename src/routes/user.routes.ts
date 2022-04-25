@@ -6,6 +6,8 @@ export const userRouter = Router();
 
 // auth
 userRouter.post('/register', AuthController.signUp);
+userRouter.post('/login', AuthController.signIn);
+userRouter.get('/logout', AuthController.logOut);
 
 // user DB
 userRouter.get('/', UserController.getAllUsers);
