@@ -4,6 +4,4 @@ import { initDb } from './db';
 
 dotenv.config();
 
-initDb().then((mongooseClient) => {
-  initRouter();
-});
+initDb().then(initRouter);

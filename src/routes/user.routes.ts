@@ -9,6 +9,9 @@ userRouter.post('/register', AuthController.signUp);
 
 // user DB
 userRouter.get('/', UserController.getAllUsers);
+userRouter.get('/:id', UserController.getUserInfo);
+userRouter.put('/:id', UserController.updateUser);
+userRouter.delete('/:id', UserController.deleteUser);
 
 // userRouter.post('/signin', (req, res) => {
 //   console.log('toto');
