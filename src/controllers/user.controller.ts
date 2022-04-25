@@ -57,4 +57,56 @@ export class UserController {
       return res.status(500).json({ message: err });
     }
   };
+
+  static follow = async (req, res) => {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({ message: 'Follower ID unknown : ' + req.params.id });
+    }
+
+    if (!isValidObjectId(req.body.idToFollow)) {
+      return res.status(400).json({ message: 'Following user ID unknown : ' + req.body.idToFollow });
+    }
+
+    try {
+      // add to the following list
+      await UserModel.updateOne({ _id: req.params.id }, { $addToSet: { following: req.body.idToFollow } });
+
+      // add to the followers list
+      const followingUserDocument = await UserModel.findByIdAndUpdate(
+        { _id: req.body.idToFollow },
+        { $addToSet: { followers: req.params.id } },
+        { new: true },
+      );
+
+      return res.status(200).json(followingUserDocument);
+    } catch (err) {
+      return res.status(500).json({ message: err });
+    }
+  };
+
+  static unfollow = async (req, res) => {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({ message: 'Unfollower ID unknown : ' + req.params.id });
+    }
+
+    if (!isValidObjectId(req.body.idToUnfollow)) {
+      return res.status(400).json({ message: 'Not following user ID unknown : ' + req.body.idToUnfollow });
+    }
+
+    try {
+      // add to the following list
+      await UserModel.updateOne({ _id: req.params.id }, { $pull: { following: req.body.idToUnfollow } });
+
+      // add to the followers list
+      const followingUserDocument = await UserModel.findByIdAndUpdate(
+        { _id: req.body.idToUnfollow },
+        { $pull: { followers: req.params.id } },
+        { new: true },
+      );
+
+      return res.status(200).json(followingUserDocument);
+    } catch (err) {
+      return res.status(500).json({ message: err });
+    }
+  };
 }

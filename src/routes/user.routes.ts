@@ -12,6 +12,8 @@ userRouter.get('/', UserController.getAllUsers);
 userRouter.get('/:id', UserController.getUserInfo);
 userRouter.put('/:id', UserController.updateUser);
 userRouter.delete('/:id', UserController.deleteUser);
+userRouter.patch('/follow/:id', UserController.follow);
+userRouter.patch('/unfollow/:id', UserController.unfollow);
 
 // userRouter.post('/signin', (req, res) => {
 //   console.log('toto');
