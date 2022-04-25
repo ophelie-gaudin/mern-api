@@ -11,12 +11,15 @@
     "baseUrl": "./src",
     "typeRoots": ["./node_modules/@types"],
     "types": ["node"],
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "incremental": true,
     "declarationMap": true,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@routes/*": ["routes/*"]
+    }
   },
   "include": ["**/*"],
   "exclude": ["node_modules", "**/*.spec.ts", "./dist/**/*"]
