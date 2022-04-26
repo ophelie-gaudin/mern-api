@@ -23,3 +23,13 @@ export const signInErrors = (err) => {
 
   return errors;
 };
+
+export const uploadErrors = (err) => {
+  const errors = { format: '', maxSize: '' };
+
+  if (err.message.includes('invalid format file.')) errors.format = 'Format non pris en charge.';
+
+  if (err.message.includes('Max size exceeded.')) errors.maxSize = 'Fichier trop volumineux.';
+
+  return errors;
+};

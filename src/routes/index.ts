@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 
 import { userRouter } from './user.routes';
+import { postRouter } from './post.routes';
 
 import { checkUser, requireAuth } from '../middleware/auth.middleware';
 
@@ -22,7 +23,8 @@ export const initRouter = () => {
   app.use(cookieParser());
 
   // jwt: each request = control of user identity
-  app.get('*', checkUser);
+  app.use('*', checkUser);
+
   // jwt: automatic login
   app.get('/jwtid', requireAuth, (req, res) => {
     res.status(200).send(res.locals.user._id);
@@ -30,6 +32,7 @@ export const initRouter = () => {
 
   // routes
   app.use('/user', userRouter);
+  app.use('/post', postRouter);
 
   // server
   app.listen(port, () => {

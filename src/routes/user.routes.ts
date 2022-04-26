@@ -1,8 +1,15 @@
+import fs from 'fs';
 import { Router } from 'express';
+import multer from 'multer';
+
 import { AuthController } from '../controllers/auth.controller';
 import { UserController } from '../controllers/user.controller';
+import { UploadController } from '../controllers/upload.controller';
 
 export const userRouter = Router();
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 // auth
 userRouter.post('/register', AuthController.signUp);
@@ -16,6 +23,9 @@ userRouter.put('/:id', UserController.updateUser);
 userRouter.delete('/:id', UserController.deleteUser);
 userRouter.patch('/follow/:id', UserController.follow);
 userRouter.patch('/unfollow/:id', UserController.unfollow);
+
+// upload
+userRouter.post('/upload-avatar', upload.single('file'), UploadController.uploadAvatar);
 
 // userRouter.post('/signin', (req, res) => {
 //   console.log('toto');

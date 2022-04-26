@@ -12,7 +12,7 @@ export const checkUser = (req, res, next) => {
         next();
       } else {
         // console.log('decoded token : ', decodedToken);
-        const user = await UserModel.findById(decodedToken.id);
+        const user = await UserModel.findById(decodedToken.id); // TODO get only the required fields from the user
         res.locals.user = user;
         // console.log(res.locals.user);
         next();
