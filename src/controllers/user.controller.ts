@@ -11,20 +11,24 @@ export class UserController {
   static getUserInfo = async (req, res) => {
     console.log(req.params);
 
+    if (req.params.id === 'me') {
+      return res.json({ user: res.locals.user });
+    }
+
     // verify if the ID user exist
-    if (!isValidObjectId(req.params.id)) return res.status(400).send('ID unknown : ' + req.params.id);
+    if (!isValidObjectId(req.params.id)) return res.status(400).json({ error: 'invalid ID : ' + req.params.id });
 
     // if it exists, execute :
     UserModel.findById(req.params.id, (err, docs) => {
       if (!err) res.send(docs);
       // docs: data in response
-      else console.log('ID unknown : ' + err);
+      else console.log('invalid ID : ' + err);
     }).select('-password');
   };
 
   static updateUser = async (req, res) => {
     if (!isValidObjectId(req.params.id)) {
-      return res.status(400).send('ID unknown : ' + req.params.id);
+      return res.status(400).send('invalid ID : ' + req.params.id);
     }
 
     try {
@@ -46,7 +50,7 @@ export class UserController {
 
   static deleteUser = async (req, res) => {
     if (!isValidObjectId(req.params.id)) {
-      return res.status(400).send('ID unknown : ' + req.params.id);
+      return res.status(400).send('invalid ID : ' + req.params.id);
     }
 
     try {

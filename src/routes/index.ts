@@ -6,7 +6,7 @@ import cors from 'cors';
 import { userRouter } from './user.routes';
 import { postRouter } from './post.routes';
 
-import { checkUser, requireAuth } from '../middleware/auth.middleware';
+import { checkUser } from '../middleware/auth.middleware';
 
 export const initRouter = () => {
   const app: Express = express();
@@ -38,7 +38,8 @@ export const initRouter = () => {
   app.use('*', checkUser);
 
   // jwt: automatic login
-  app.get('/jwtid', requireAuth, (req, res) => {
+  app.get('/jwt', (req, res) => {
+    // const token = createToken()
     res.status(200).send(res.locals.user._id);
   });
 

@@ -4,8 +4,12 @@ import { UserModel } from '../models/user.model';
 export const checkUser = (req, res, next) => {
   const token = req.cookies.jwt;
 
+  console.log(token);
+
   if (token) {
     jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
+      console.log('popopo', err);
+
       if (err) {
         res.locals.user = null;
         res.cookie('jwt', '', { maxAge: 1 });

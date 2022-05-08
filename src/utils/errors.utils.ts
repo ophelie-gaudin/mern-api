@@ -17,7 +17,7 @@ export const signUpErrors = (err) => {
 export const signInErrors = (err) => {
   const errors = { email: '', password: '' };
 
-  if (err.message.includes('email')) errors.email = 'Email invalide';
+  if (err.message.includes('email')) errors.email = 'Email inconnu';
 
   if (err.message.includes('password')) errors.password = 'Mot de passe invalide';
 
